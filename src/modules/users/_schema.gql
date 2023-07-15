@@ -1,0 +1,47 @@
+type Query {
+	metros: [Metro!]!
+	metro(id: ID!): Metro!
+
+	paths: [Path!]!
+	path(id: ID!): Path!
+
+	stations: [Station!]!
+	station(id: ID!): Station!
+	
+	# links: [Link!]!
+	# link(id: ID!): Link!
+}
+
+type Metro {
+	id: ID!
+	name: String!
+	paths: [Path!]!
+}
+
+type Path {
+	id: ID!
+	name: String!
+	metro: Metro!
+	stations: [Station!]!
+	links: [PathLink!]
+}
+
+type Station {
+	id: ID!
+	name: String!
+	path: Path!
+	forward: Station
+	backward: Station
+	has_path_link: Boolean
+	links: [StationLink!]
+}
+
+type StationLink {
+	station: Station!
+	linked_station: Station!
+}
+
+type PathLink{
+	path: Path!
+	linked_path: Path!
+}
